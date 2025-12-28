@@ -7,21 +7,21 @@ import {
 
 export class ApiInfo implements INodeType {
     description: INodeTypeDescription = {
-        displayName: 'Api Info',
-        name: 'apiInfo',
+        displayName: 'Ip Info by Ytosko',
+        name: 'ipInfo',
         icon: 'file:apiInfo.svg',
         group: ['transform'],
         version: 1,
         subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-        description: 'Interact with ApiInfo API',
+        description: 'Interact with IPinfo API',
         defaults: {
-            name: 'Api Info',
+            name: 'IPinfo',
         },
         inputs: ['main'],
         outputs: ['main'],
         credentials: [
             {
-                name: 'apiInfoApi',
+                name: 'ipInfoApi',
                 required: true,
             },
         ],
@@ -131,7 +131,7 @@ export class ApiInfo implements INodeType {
                     const ip = (this.getNodeParameter('ip', i) as string).trim();
                     const field = this.getNodeParameter('field', i) as string;
 
-                    const credentials = await this.getCredentials('apiInfoApi');
+                    const credentials = await this.getCredentials('ipInfoApi');
                     const accessToken = (credentials.accessToken as string || '').trim();
 
                     const baseUrl = 'https://ipinfo.io';

@@ -4,15 +4,18 @@ import {
 } from 'n8n-workflow';
 
 export class ApiInfoApi implements ICredentialType {
-    name = 'apiInfoApi';
-    displayName = 'Api Info API';
+    name = 'ipInfoApi';
+    displayName = 'IPinfo API';
     documentationUrl = 'https://ipinfo.io/developers';
     properties: INodeProperties[] = [
         {
             displayName: 'Access Token',
             name: 'accessToken',
             type: 'string',
-            default: '',
+            typeOptions: {
+                password: true,
+            },
+            default: 'b174ff87144bac',
         },
     ];
 }
