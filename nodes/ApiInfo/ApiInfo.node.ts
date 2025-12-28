@@ -135,7 +135,7 @@ export class ApiInfo implements INodeType {
                     const credentials = await this.getCredentials('apiInfoApi');
                     const options: any = {
                         method: 'GET',
-                        uri: `https://ipinfo.io${path}`,
+                        url: `https://ipinfo.io${path}`,
                         qs: {
                             token: credentials.accessToken,
                         },
@@ -146,7 +146,7 @@ export class ApiInfo implements INodeType {
                         responseData = await this.helpers.httpRequest(options);
                         delete responseData.readme;
                     } else {
-                        options.uri = `https://ipinfo.io${path}/${field}`;
+                        options.url = `https://ipinfo.io${path}/${field}`;
                         options.json = false;
                         responseData = await this.helpers.httpRequest(options);
                         responseData = { [field]: (responseData as string).trim() };
