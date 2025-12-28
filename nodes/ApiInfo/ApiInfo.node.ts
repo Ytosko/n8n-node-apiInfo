@@ -141,6 +141,7 @@ export class ApiInfo implements INodeType {
                         uri: `https://ipinfo.io${path}`,
                         json: true,
                     });
+                    delete responseData.readme;
                 }
 
                 if (Array.isArray(responseData)) {
