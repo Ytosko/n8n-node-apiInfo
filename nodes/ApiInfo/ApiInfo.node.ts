@@ -131,17 +131,22 @@ export class ApiInfo implements INodeType {
                     const ip = this.getNodeParameter('ip', i) as string;
                     const field = this.getNodeParameter('field', i) as string;
 
-                    let path = `/${ip}`;
-                    if (field !== 'all') {
-                        path += `/${field}`;
+                    const path = `/${ip}`;
+                    if (field === 'all') {
+                        responseData = await this.helpers.requestWithAuthentication.call(this, 'apiInfoApi', {
+                            method: 'GET',
+                            uri: `https://ipinfo.io${path}`,
+                            json: true,
+                        });
+                        delete responseData.readme;
+                    } else {
+                        responseData = await this.helpers.requestWithAuthentication.call(this, 'apiInfoApi', {
+                            method: 'GET',
+                            uri: `https://ipinfo.io${path}/${field}`,
+                            json: false,
+                        });
+                        responseData = { [field]: (responseData as string).trim() };
                     }
-
-                    responseData = await this.helpers.requestWithAuthentication.call(this, 'apiInfoApi', {
-                        method: 'GET',
-                        uri: `https://ipinfo.io${path}`,
-                        json: true,
-                    });
-                    delete responseData.readme;
                 }
 
                 if (Array.isArray(responseData)) {
