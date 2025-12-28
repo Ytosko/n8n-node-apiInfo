@@ -134,24 +134,25 @@ export class ApiInfo implements INodeType {
                     const credentials = await this.getCredentials('apiInfoApi');
                     const accessToken = (credentials.accessToken as string || '').trim();
 
-                    let requestUrl = `https://ipinfo.io/${ip}`;
+                    const baseUrl = 'https://ipinfo.io';
+                    // Strip http/https if user pasted it
+                    const cleanIp = ip.replace(/^https?:\/\//, '');
+
+                    const u = new URL(`${baseUrl}/${cleanIp}`);
 
                     if (field !== 'all') {
-                        requestUrl += `/${field}`;
+                        u.pathname += `/${field}`;
                     }
 
                     if (accessToken) {
-                        requestUrl += `?token=${accessToken}`;
+                        u.searchParams.append('token', accessToken);
                     }
 
                     const options: any = {
                         method: 'GET',
-                        url: requestUrl,
+                        url: u.toString(),
                         json: field === 'all',
                     };
-
-                    // DEBUGGING: Throwing URL to see what is generated
-                    throw new Error(`DEBUG_URL: [${requestUrl}] TokenLength: ${accessToken ? accessToken.length : 0}`);
 
                     responseData = await this.helpers.httpRequest(options);
 
