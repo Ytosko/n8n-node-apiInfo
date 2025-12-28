@@ -28,7 +28,9 @@
     "nodes": [
       "dist/nodes/ApiInfo/ApiInfo.node.js"
     ],
-    "credentials": []
+    "credentials": [
+      "dist/credentials/ApiInfoApi.credentials.js"
+    ]
   },
   "devDependencies": {
     "@types/express": "^4.17.6",

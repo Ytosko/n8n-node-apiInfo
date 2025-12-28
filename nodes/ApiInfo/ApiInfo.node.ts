@@ -19,7 +19,12 @@ export class ApiInfo implements INodeType {
         },
         inputs: ['main'],
         outputs: ['main'],
-        credentials: [],
+        credentials: [
+            {
+                name: 'apiInfoApi',
+                required: true,
+            },
+        ],
         properties: [
             {
                 displayName: 'Resource',
@@ -131,9 +136,9 @@ export class ApiInfo implements INodeType {
                         path += `/${field}`;
                     }
 
-                    responseData = await this.helpers.httpRequest({
+                    responseData = await this.helpers.requestWithAuthentication.call(this, 'apiInfoApi', {
                         method: 'GET',
-                        url: `https://ipinfo.io${path}`,
+                        uri: `https://ipinfo.io${path}`,
                         json: true,
                     });
                 }

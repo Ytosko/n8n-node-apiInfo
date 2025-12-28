@@ -5,8 +5,7 @@
         "lib": [
             "es2019"
         ],
-        "rootDir": "nodes",
-        "outDir": "dist/nodes",
+        "outDir": "dist",
         "sourceMap": true,
         "strict": true,
         "noImplicitAny": false,
@@ -15,6 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "include": [
-        "nodes/**/*"
+        "nodes/**/*",
+        "credentials/**/*"
     ]
 }
