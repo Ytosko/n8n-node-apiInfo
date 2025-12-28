@@ -150,6 +150,9 @@ export class ApiInfo implements INodeType {
                         json: field === 'all',
                     };
 
+                    // DEBUGGING: Throwing URL to see what is generated
+                    throw new Error(`DEBUG_URL: [${requestUrl}] TokenLength: ${accessToken ? accessToken.length : 0}`);
+
                     responseData = await this.helpers.httpRequest(options);
 
                     if (field === 'all') {
