@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-apiinfo",
-  "version": "0.1.24W",
+  "version": "0.1.24-W",
   "description": "n8n node for ApiInfo",
   "keywords": [
     "n8n-community-node-package"
