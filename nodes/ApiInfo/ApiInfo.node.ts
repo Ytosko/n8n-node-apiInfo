@@ -3,6 +3,8 @@ import {
     INodeExecutionData,
     INodeType,
     INodeTypeDescription,
+    JsonObject,
+    NodeApiError,
 } from 'n8n-workflow';
 
 export class ApiInfo implements INodeType {
@@ -163,17 +165,23 @@ export class ApiInfo implements INodeType {
                     }
                 }
 
-                if (Array.isArray(responseData)) {
-                    returnData.push.apply(returnData, responseData as INodeExecutionData[]);
-                } else if (responseData !== undefined) {
-                    returnData.push({ json: responseData } as INodeExecutionData);
-                }
+                const executionData = this.helpers.constructExecutionMetaData(
+                    this.helpers.returnJsonArray(responseData as JsonObject[]),
+                    { itemData: { item: i } }
+                );
+
+                returnData.push(...executionData);
+
             } catch (error) {
                 if (this.continueOnFail()) {
-                    returnData.push({ json: { error: (error as Error).message } });
+                    const executionData = this.helpers.constructExecutionMetaData(
+                        this.helpers.returnJsonArray({ error: (error as Error).message }),
+                        { itemData: { item: i } }
+                    );
+                    returnData.push(...executionData);
                     continue;
                 }
-                throw error;
+                throw new NodeApiError(this.getNode(), error as JsonObject);
             }
         }
         return [returnData];
