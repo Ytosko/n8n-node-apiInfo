@@ -15,7 +15,7 @@ export class ApiInfoApi implements ICredentialType {
             typeOptions: {
                 password: true,
             },
-            default: 'b174ff87144bac',
+            default: '',
         },
     ];
 }

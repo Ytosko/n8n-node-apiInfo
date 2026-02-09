@@ -1,5 +1,6 @@
 import {
     IExecuteFunctions,
+    IHttpRequestOptions,
     INodeExecutionData,
     INodeType,
     INodeTypeDescription,
@@ -150,7 +151,7 @@ export class ApiInfo implements INodeType {
                         u.searchParams.append('token', accessToken);
                     }
 
-                    const options: any = {
+                    const options: IHttpRequestOptions = {
                         method: 'GET',
                         url: u.toString(),
                         json: field === 'all',
