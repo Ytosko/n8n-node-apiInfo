@@ -8,6 +8,10 @@ import {
     NodeApiError,
 } from 'n8n-workflow';
 
+enum NodeConnectionType {
+    Main = 'main',
+}
+
 export class ApiInfo implements INodeType {
     description: INodeTypeDescription = {
         displayName: 'Ip Info by Ytosko',
@@ -20,8 +24,8 @@ export class ApiInfo implements INodeType {
         defaults: {
             name: 'IPinfo',
         },
-        inputs: ['main'],
-        outputs: ['main'],
+        inputs: [NodeConnectionType.Main],
+        outputs: [NodeConnectionType.Main],
         credentials: [
             {
                 name: 'ipInfoApi',

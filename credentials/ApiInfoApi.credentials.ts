@@ -1,6 +1,7 @@
 import {
     ICredentialType,
     INodeProperties,
+    ICredentialTestRequest,
 } from 'n8n-workflow';
 
 export class ApiInfoApi implements ICredentialType {
@@ -18,4 +19,13 @@ export class ApiInfoApi implements ICredentialType {
             default: '',
         },
     ];
+    test: ICredentialTestRequest = {
+        request: {
+            baseURL: 'https://ipinfo.io',
+            url: '/json',
+            qs: {
+                token: '={{$credentials?.accessToken}}',
+            },
+        },
+    };
 }
